@@ -40,6 +40,7 @@
 		"serve": "webpack serve --mode development --env development",
 		"start": "cd ./src/main&&tsc&&cd ../..&&electron .",
 		"build": "webpack --mode production&&cd ./src/main&&tsc",
-		"dist": "node ./scripts/dist.js"
+		"dist": "node ./scripts/dist.js",
+		"dev": "node ./scripts/dev.js"
 	}
 }
