@@ -2,16 +2,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const devPort = require('./config/dev.config').DEV_PORT;
+
 module.exports = {
 	devServer: {
 		static: path.resolve(__dirname, 'public'),
 		host: '127.0.0.1',
-		port: 7000,
+		port: devPort,
 	},
 	resolve: {
 		extensions: ['.js', '.json', '.ts', '.tsx'],
 		alias: {
 			Components: path.join(__dirname, 'src/render/Components'),
+			Hooks: path.join(__dirname, 'src/render/Hooks'),
 			Utils: path.join(__dirname, 'src/render/Utils'),
 		},
 	},
