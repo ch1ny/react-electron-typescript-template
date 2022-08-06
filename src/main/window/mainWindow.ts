@@ -1,27 +1,37 @@
-import { BrowserWindow } from 'electron';
+/**
+ * @description 【示例模板】 仅作为创建主窗口方法的推荐模板，开发者可根据自身需要对函数进行自定义
+ */
+
 import path from 'path';
 import url from 'url';
-import { IS_PACKAGED, PRELOAD_DIR } from '../constants';
+import { ARGV, IS_PACKAGED, PRELOAD_DIR } from '../constants';
 import { screenSize } from '../life-cycle';
-
-let mainWindow: BrowserWindow;
+import { BaseWindowInstance, createBaseWindow, windowList } from './createWindow';
 
 const createMainWindow = () => {
 	const { width: screenWidth = 0, height: screenHeight = 0 } = screenSize;
-	mainWindow = new BrowserWindow({
-		width: parseInt(`${screenWidth * 0.7}`),
-		height: parseInt(`${screenHeight * 0.8}`),
-		frame: false,
-		transparent: true,
-		show: false,
-		// icon: path.join(DIRNAME, 'electronAssets', 'favicon.ico'),
+	const { windowKey, window: mainWindow } = createBaseWindow({
+		browserWindowName: 'mainWindow',
+		autoShow: true,
+		browserWindowProps: {
+			width: parseInt(`${screenWidth * 0.7}`),
+			height: parseInt(`${screenHeight * 0.8}`),
+			frame: false,
+			transparent: true,
+		},
 		webPreferences: {
 			preload: path.join(PRELOAD_DIR, 'preload.js'),
-			devTools: !IS_PACKAGED,
 		},
+		onWindowShow: [
+			{
+				beforeShow: false,
+				cb: (window: Electron.BrowserWindow) => {
+					window.webContents.openDevTools();
+				},
+			},
+		],
 	});
-
-	mainWindow.on('ready-to-show', mainWindow.show);
+	mainWindowInstance.updateWindowKey(windowKey);
 
 	if (IS_PACKAGED) {
 		mainWindow.loadURL(
@@ -32,17 +42,20 @@ const createMainWindow = () => {
 			})
 		);
 	} else {
-		mainWindow.loadURL('http://127.0.0.1:7000/');
+		mainWindow.loadURL(`http://127.0.0.1:${ARGV['--port']}/`);
 	}
 
 	return mainWindow;
 };
 
-const MainWindow = class {
+const MainWindowInstance = class extends BaseWindowInstance {
 	get mainWindowInstance() {
+		const mainWindow = windowList[this.windowKey];
 		return mainWindow ? mainWindow : createMainWindow();
 	}
 	createMainWindow = createMainWindow;
 };
 
-export default new MainWindow();
+const mainWindowInstance = new MainWindowInstance('mainWindow');
+
+export default mainWindowInstance;

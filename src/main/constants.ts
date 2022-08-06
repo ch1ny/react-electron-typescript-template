@@ -1,5 +1,6 @@
 import { app } from 'electron';
 import path from 'path';
+import { parseArgvArrayToJson, parseSingleArgv } from './utils/parseArgv';
 
 const IS_PACKAGED = app.isPackaged;
 /**
@@ -12,4 +13,6 @@ const IS_PACKAGED = app.isPackaged;
 const EXEPATH = path.dirname(app.getPath('exe'));
 const PRELOAD_DIR = path.resolve(__dirname, 'preload');
 
-export { IS_PACKAGED, EXEPATH, PRELOAD_DIR };
+const ARGV = parseArgvArrayToJson(process.argv.slice(2).map(parseSingleArgv));
+
+export { IS_PACKAGED, EXEPATH, PRELOAD_DIR, ARGV };
