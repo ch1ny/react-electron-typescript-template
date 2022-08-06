@@ -4,7 +4,7 @@
 
 import path from 'path';
 import url from 'url';
-import { ARGV, IS_PACKAGED, PRELOAD_DIR } from '../constants';
+import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR } from '../constants';
 import { screenSize } from '../life-cycle';
 import { BaseWindowInstance, createBaseWindow, windowList } from './createWindow';
 
@@ -36,7 +36,7 @@ const createMainWindow = () => {
 	if (IS_PACKAGED) {
 		mainWindow.loadURL(
 			url.format({
-				pathname: path.resolve(__dirname, '../render/index.html'),
+				pathname: path.resolve(ASAR_ROOT_PATH, './render/index.html'),
 				protocol: 'file:',
 				slashes: true,
 			})
