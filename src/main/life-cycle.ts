@@ -1,4 +1,4 @@
-import { mainWindow } from './window';
+import { mainWindow } from './utils/core';
 
 const { app, screen } = require('electron');
 

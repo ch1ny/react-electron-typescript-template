@@ -1,6 +1,6 @@
 import { app } from 'electron';
 import path from 'path';
-import { parseArgvArrayToJson, parseSingleArgv } from './utils/parseArgv';
+import { parseArgvArrayToJson, parseSingleArgv } from './utils/base/parseArgv';
 
 const IS_PACKAGED = app.isPackaged;
 /**

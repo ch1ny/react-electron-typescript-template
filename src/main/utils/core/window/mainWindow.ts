@@ -4,8 +4,8 @@
 
 import path from 'path';
 import url from 'url';
-import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR } from '../constants';
-import { lifeCycle, screenSize } from '../life-cycle';
+import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR } from '../../../constants';
+import { lifeCycle, screenSize } from '../../../life-cycle';
 import { createMenu } from '../menu';
 import { createTray } from '../tray';
 import { BaseWindowInstance, createBaseWindow, windowList } from './createWindow';
