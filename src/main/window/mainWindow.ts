@@ -5,14 +5,20 @@
 import path from 'path';
 import url from 'url';
 import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR } from '../constants';
-import { screenSize } from '../life-cycle';
+import { lifeCycle, screenSize } from '../life-cycle';
+import { createMenu } from '../menu';
+import { createTray } from '../tray';
 import { BaseWindowInstance, createBaseWindow, windowList } from './createWindow';
 
 const createMainWindow = () => {
+	const APP_ICON = IS_PACKAGED
+		? path.resolve(ASAR_ROOT_PATH, 'app_icon.ico')
+		: `${ARGV['--icon']}`;
 	const { width: screenWidth = 0, height: screenHeight = 0 } = screenSize;
 	const { windowKey, window: mainWindow } = createBaseWindow({
 		browserWindowName: 'mainWindow',
 		autoShow: true,
+		icon: APP_ICON,
 		browserWindowProps: {
 			width: parseInt(`${screenWidth * 0.7}`),
 			height: parseInt(`${screenHeight * 0.8}`),
@@ -27,6 +33,28 @@ const createMainWindow = () => {
 				beforeShow: false,
 				cb: (window: Electron.BrowserWindow) => {
 					window.webContents.openDevTools();
+				},
+			},
+			{
+				beforeShow: false,
+				cb: (window: Electron.BrowserWindow) => {
+					createTray(
+						APP_ICON,
+						createMenu({
+							template: [
+								{
+									label: '退出',
+									click: () => {
+										lifeCycle.quit();
+									},
+								},
+							],
+						}),
+						'React + Electron + TypeScript 模板示例',
+						() => {
+							window.center();
+						}
+					);
 				},
 			},
 		],

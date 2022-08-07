@@ -1,5 +1,7 @@
 import { mainWindow } from './window';
 
+const { app, screen } = require('electron');
+
 const screenSize: {
 	width?: number;
 	height?: number;
@@ -7,7 +9,6 @@ const screenSize: {
 
 const lifeCycle = {
 	start: () => {
-		const { app, screen } = require('electron');
 		app.on('ready', () => {
 			const { width: screenWidth, height: screenHeight } =
 				screen.getPrimaryDisplay().workAreaSize;
@@ -21,6 +22,7 @@ const lifeCycle = {
 			if (process.platform !== 'darwin') app.quit();
 		});
 	},
+	quit: app.quit,
 };
 
 export { lifeCycle, screenSize };
