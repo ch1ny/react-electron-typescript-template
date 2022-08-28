@@ -14,6 +14,7 @@ export interface ICreateBaseWindowProps {
 	browserWindowProps?: IBaseWindowProps;
 	webPreferences?: Electron.WebPreferences;
 	onWindowShow?: { beforeShow: boolean; cb: (window: Electron.BrowserWindow) => void }[];
+	icon?: string | Electron.NativeImage;
 }
 
 export const windowList: Record<string, Electron.BrowserWindow> = {};
@@ -24,6 +25,7 @@ export const createBaseWindow = ({
 	browserWindowProps,
 	webPreferences,
 	onWindowShow,
+	icon,
 }: ICreateBaseWindowProps) => {
 	let windowKey = `${browserWindowName}`;
 	while (windowList[windowKey]) {
@@ -33,6 +35,7 @@ export const createBaseWindow = ({
 	const window = new BrowserWindow({
 		...browserWindowProps,
 		show: false,
+		icon,
 		webPreferences: {
 			devTools: !app.isPackaged,
 			...webPreferences,
