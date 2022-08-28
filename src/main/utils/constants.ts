@@ -1,6 +1,6 @@
 import { app } from 'electron';
 import path from 'path';
-import { parseArgvArrayToJson, parseSingleArgv } from './utils/base/parseArgv';
+import { parseArgvArrayToJson, parseSingleArgv } from './base/parseArgv';
 
 const IS_PACKAGED = app.isPackaged;
 /**
@@ -21,4 +21,9 @@ const PRELOAD_DIR = path.resolve(__dirname, 'preload');
 
 const ARGV = parseArgvArrayToJson(process.argv.slice(2).map(parseSingleArgv));
 
-export { IS_PACKAGED, EXEPATH, PRELOAD_DIR, ASAR_ROOT_PATH, ARGV };
+const screenSize: {
+	width?: number;
+	height?: number;
+} = {};
+
+export { IS_PACKAGED, EXEPATH, PRELOAD_DIR, ASAR_ROOT_PATH, ARGV, screenSize };
