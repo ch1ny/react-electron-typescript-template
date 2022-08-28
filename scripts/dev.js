@@ -11,8 +11,10 @@ react.unref();
 
 // 2. 启动 electron
 cp.execSync('tsc', { cwd: path.resolve(DIRNAME, 'src', 'main') });
-const DEV_PORT = require('../config/dev.config').DEV_PORT;
-const electron = cp.spawn('electron.cmd', ['.', `--port=${DEV_PORT}`], { cwd: DIRNAME });
+const { DEV_PORT, APP_ICON } = require('../config/dev.config');
+const electron = cp.spawn('electron.cmd', ['.', `--port=${DEV_PORT}`, `--icon=${APP_ICON}`], {
+	cwd: DIRNAME,
+});
 electron.on('close', () => {
 	switch (process.platform) {
 		case 'win32':

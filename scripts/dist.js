@@ -5,7 +5,10 @@ const fse = require('fs-extra');
 const DIRNAME = path.resolve(__dirname, '..');
 
 const dist = async () => {
-	console.log(chalk.bold.greenBright('1.读取package.json数据'));
+	console.log(chalk.bold.blueBright('1. 清空build目录'));
+	fse.emptyDirSync(path.resolve(DIRNAME, 'build'));
+
+	console.log(chalk.bold.blueBright('2. 读取package.json数据'));
 	const packageJson = fse.readJsonSync(path.resolve(DIRNAME, 'package.json'));
 	const {
 		name: packageName = '',
@@ -15,14 +18,14 @@ const dist = async () => {
 		description: packageDescription = '',
 	} = packageJson;
 
-	console.log(chalk.bold.cyanBright('2.编译ts代码'));
+	console.log(chalk.bold.blueBright('3. 编译ts代码'));
 	const { execa } = await import('execa');
 	await execa('yarn', ['build'], {
 		stdout: process.stdout,
 	});
 	console.log(chalk.bold.greenBright('编译结束'));
 
-	console.log(chalk.bold.yellowBright('3.生成package.json'));
+	console.log(chalk.bold.blueBright('4. 生成package.json'));
 	fse.outputJsonSync(
 		path.resolve(DIRNAME, 'build', 'package.json'),
 		{
@@ -38,10 +41,12 @@ const dist = async () => {
 			EOL: '\n',
 		}
 	);
+	const { APP_ICON } = require('../config/dev.config');
+	fse.copyFileSync(APP_ICON, path.resolve(DIRNAME, 'build', `app_icon${path.extname(APP_ICON)}`));
 
 	process.platform;
 
-	console.log(chalk.bold.cyanBright('4.设置electron-packager打包参数'));
+	console.log(chalk.bold.blueBright('5. 设置electron-packager打包参数'));
 	const inquirer = (await import('inquirer')).default;
 	const { platform, arch, overwrite } = await inquirer.prompt([
 		{
@@ -69,7 +74,7 @@ const dist = async () => {
 			.split('-')
 			.map((str) => `${str.substring(0, 1).toUpperCase()}${str.substring(1)}`)
 			.join(''),
-		// `--icon=${path.resolve(DIRNAME, 'favicon.ico')}`,
+		`--icon=${APP_ICON}`,
 		`--platform=${platform}`,
 		`--arch=${arch}`,
 		`--out`,
@@ -93,7 +98,7 @@ const dist = async () => {
 			);
 	}
 
-	console.log(chalk.bold.cyanBright('5.electron-packager打包可执行文件'));
+	console.log(chalk.bold.blueBright('6. electron-packager打包可执行文件'));
 	await execa('electron-packager', electronPackagerOptions, {
 		stdout: process.stdout,
 	});
