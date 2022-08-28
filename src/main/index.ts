@@ -1,3 +1,11 @@
-import { lifecycle } from './core/app/lifecycle';
+import { ipcMain } from 'electron';
+import { ARGV } from './constants';
+import { lifeCycle } from './life-cycle';
 
-lifecycle.startApp();
+console.log('APP START');
+
+ipcMain.handle('APP.ARGV', () => {
+	return ARGV;
+});
+
+lifeCycle.start();

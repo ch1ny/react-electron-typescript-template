@@ -1,1 +1,0 @@
-export { createTray } from './createTray';
