@@ -2,10 +2,10 @@
  * @description 【示例模板】 仅作为创建主窗口方法的推荐模板，开发者可根据自身需要对函数进行自定义
  */
 
+import { app } from 'electron';
 import path from 'path';
 import url from 'url';
-import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR } from '../constants';
-import { lifeCycle, screenSize } from '../life-cycle';
+import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR, screenSize } from '../../constants';
 import { createMenu } from '../menu';
 import { createTray } from '../tray';
 import { BaseWindowInstance, createBaseWindow, windowList } from './createWindow';
@@ -45,7 +45,7 @@ const createMainWindow = () => {
 								{
 									label: '退出',
 									click: () => {
-										lifeCycle.quit();
+										app.quit();
 									},
 								},
 							],
