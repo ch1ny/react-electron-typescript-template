@@ -41,6 +41,7 @@ const dist = async () => {
 			EOL: '\n',
 		}
 	);
+	// TODO: macOS 下需要专用的 icns 图标文件
 	const { APP_ICON } = require('../config/dev.config');
 	fse.copyFileSync(APP_ICON, path.resolve(DIRNAME, 'build', `app_icon${path.extname(APP_ICON)}`));
 
