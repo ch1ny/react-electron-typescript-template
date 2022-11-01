@@ -1,6 +1,6 @@
 import { app, ipcMain, screen } from 'electron';
-import { consoleService, updateService } from './core/services';
-import * as CONSTANTS from './utils/constants';
+import { consoleService } from './core/services';
+import * as CONSTANTS from './constants';
 import { mainWindow } from './utils/core';
 
 const { ARGV, screenSize } = CONSTANTS;
@@ -18,9 +18,6 @@ export default async () => {
 	});
 	ipcMain.handle('APP.CONSTANT', () => {
 		return CONSTANTS;
-	});
-	ipcMain.on('APP.UPDATE', () => {
-		updateService.hotUpdate();
 	});
 	app.on('ready', () => {
 		const { width: screenWidth, height: screenHeight } =

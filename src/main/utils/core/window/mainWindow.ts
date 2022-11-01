@@ -5,7 +5,7 @@
 import { app } from 'electron';
 import path from 'path';
 import url from 'url';
-import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR, screenSize } from '../../constants';
+import { ARGV, ASAR_ROOT_PATH, IS_PACKAGED, PRELOAD_DIR, screenSize } from '../../../constants';
 import { createMenu } from '../menu';
 import { createTray } from '../tray';
 import { BaseWindowInstance, createBaseWindow, windowList } from './createWindow';

@@ -21,9 +21,11 @@ const dist = async () => {
 
 	console.log(chalk.bold.blueBright('3. 编译ts代码'));
 	const { execa } = await import('execa');
-	await execa('yarn', ['build'], {
-		stdout: process.stdout,
-	});
+	await Promise.all([
+		execa('npm', ['run', 'build:render']),
+		execa('npm', ['run', 'build:preload']),
+		execa('npm', ['run', 'build:main']),
+	]);
 	console.log(chalk.bold.greenBright('编译结束'));
 
 	console.log(chalk.bold.blueBright('4. 生成package.json'));

@@ -8,8 +8,8 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
-		"outDir": "../../build/main",
+		"outDir": "../../build/preload",
 		"removeComments": true
 	},
-	"include": ["./**/*.ts"]
+	"include": ["./**/*"]
 }

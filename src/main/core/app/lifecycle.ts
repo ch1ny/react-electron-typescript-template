@@ -3,7 +3,7 @@ import { updateService } from '../services';
 export const lifecycle = {
 	beforeStartApp: async () => {
 		await import('../services');
-		
+
 		updateService.beforeStartApp();
 	},
 	startApp: async function () {

@@ -1,6 +1,6 @@
 import { app } from 'electron';
 import path from 'path';
-import { parseArgvArrayToJson, parseSingleArgv } from './base/parseArgv';
+import { parseArgvArrayToJson, parseSingleArgv } from './utils/base/parseArgv';
 
 const IS_PACKAGED = app.isPackaged;
 /**
@@ -15,9 +15,9 @@ const EXEPATH = path.dirname(app.getPath('exe'));
 /**
  * app.asar 根目录，对应开发环境下的 build 文件夹
  */
-const ASAR_ROOT_PATH = path.resolve(__dirname, '..', '..');
+const ASAR_ROOT_PATH = path.resolve(__dirname, '..');
 
-const PRELOAD_DIR = path.resolve(ASAR_ROOT_PATH, 'main', 'preload');
+const PRELOAD_DIR = path.resolve(ASAR_ROOT_PATH, 'preload');
 
 const ARGV = parseArgvArrayToJson(process.argv.slice(2).map(parseSingleArgv));
 

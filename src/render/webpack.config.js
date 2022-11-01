@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { DIRNAME } = require('../../scripts/common');
 
-const devPort = require('./config/dev.config').DEV_PORT;
+const devPort = require('../../config/dev.config').DEV_PORT;
 
 module.exports = {
 	devServer: {
@@ -13,14 +14,14 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.json', '.ts', '.tsx'],
 		alias: {
-			Components: path.join(__dirname, 'src/render/Components'),
-			Hooks: path.join(__dirname, 'src/render/Hooks'),
-			Utils: path.join(__dirname, 'src/render/Utils'),
+			Components: path.join(__dirname, 'Components'),
+			Hooks: path.join(__dirname, 'Hooks'),
+			Utils: path.join(__dirname, 'Utils'),
 		},
 	},
-	entry: path.resolve(__dirname, 'src/render/index.tsx'),
+	entry: path.resolve(__dirname, 'index.tsx'),
 	output: {
-		path: path.resolve(__dirname, 'build', 'render'),
+		path: path.resolve(DIRNAME, 'build', 'render'),
 		filename: 'index.[chunkhash:8].js',
 	},
 	module: {
@@ -74,7 +75,7 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: './public/index.html',
+			template: path.resolve(DIRNAME, 'public', 'index.html'),
 		}),
 	],
 };
