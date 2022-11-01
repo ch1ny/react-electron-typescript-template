@@ -6,9 +6,9 @@ module.exports = {
 			'Frameworks/ReactElectronTypescriptTemplate Helper (Plugin).app/Contents/Info.plist',
 			'Frameworks/ReactElectronTypescriptTemplate Helper (Renderer).app/Contents/Info.plist',
 			'Frameworks/ReactElectronTypescriptTemplate Helper.app/Contents/Info.plist',
-			'Info.plist',
-			'Resources/app.asar',
-			'Resources/electron.icns'
+			'Info.plist', // 右键显示简介版本号
+			'Resources/app.asar', // 应用资源
+			'Resources/electron.icns' // 图标文件
 		],
 	}
 };
