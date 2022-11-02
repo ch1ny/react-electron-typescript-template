@@ -5,7 +5,7 @@ export const servicesLifecycle = {
 			this.callbacks.push(callback);
 		},
 		async generatedServiceDecorators() {
-			await import('./instance');
+			await import('../instance');
 
 			this.callbacks.forEach((cb) => {
 				cb.call(this);
