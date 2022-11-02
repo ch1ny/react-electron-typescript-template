@@ -19,10 +19,8 @@ export const iocBridge: IIocBridge = {
 					{
 						get(_, property: string) {
 							if (!serviceInstance) {
-								const instanceOrCtor = services.get(id);
-								serviceInstance = new (<SyncDescriptor<unknown>>(
-									instanceOrCtor
-								)).ctor() as T;
+								const instanceOrCtor = services.get(id) as SyncDescriptor<unknown>;
+								serviceInstance = new instanceOrCtor.ctor(...instanceOrCtor.staticArguments) as T;
 							}
 							const target = (serviceInstance as any)[property];
 							return typeof target === 'function'

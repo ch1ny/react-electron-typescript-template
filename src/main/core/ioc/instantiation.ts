@@ -34,15 +34,17 @@ export function createServiceDecorator<T>(serviceId: string): ServiceIdentifier<
 }
 
 export class SyncDescriptor<T> {
-	readonly ctor: new (...args: any[]) => T; // constructor function of service
-	readonly staticArguments: any[]; // arguments needed by service while initing
-	readonly supportsDelayedInstantiation: boolean; // allow delayed initing
+	readonly ctor!: new (...args: any[]) => T; // constructor function of service
+	readonly staticArguments!: any[]; // arguments needed by service while initing
+	readonly supportsDelayedInstantiation!: boolean; // allow delayed initing
 
 	constructor(
 		ctor: new (...args: any[]) => T,
-		staticArguments: any[] = [],
-		supportsDelayedInstantiation: boolean = false
+		supportsDelayedInstantiation: boolean = true,
+		staticArguments: any[] = []
 	) {
+		if (!supportsDelayedInstantiation) return new ctor(...staticArguments) as any;
+
 		this.ctor = ctor;
 		this.staticArguments = staticArguments;
 		this.supportsDelayedInstantiation = supportsDelayedInstantiation;
