@@ -1,6 +1,6 @@
-import { services, SyncDescriptor } from '../ioc';
-import { DConsoleService } from './utils/decorators';
-import { servicesLifecycle } from './utils/serviceLifcycle';
+import { services, SyncDescriptor } from '../../ioc';
+import { DConsoleService } from '../core/decorators';
+import { servicesLifecycle } from '../core/serviceLifcycle';
 
 export type EBashColor =
 	| 'white'

@@ -2,10 +2,10 @@ import cp from 'child_process';
 import { ipcMain } from 'electron';
 import fs from 'fs';
 import path from 'path';
-import { EXEPATH } from '../../constants';
-import { services, SyncDescriptor } from '../ioc';
-import { DUpdateService } from './utils/decorators';
-import { servicesLifecycle } from './utils/serviceLifcycle';
+import { EXEPATH } from '../../../constants';
+import { services, SyncDescriptor } from '../../ioc';
+import { DUpdateService } from '../core/decorators';
+import { servicesLifecycle } from '../core/serviceLifcycle';
 
 const ContentsParentDir = path.resolve(EXEPATH, '../..');
 
