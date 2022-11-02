@@ -3,21 +3,12 @@ import { consoleService } from './core/services';
 import * as CONSTANTS from './constants';
 import { mainWindow } from './utils/core';
 
-const { ARGV, screenSize } = CONSTANTS;
+const { screenSize } = CONSTANTS;
 
 export default async () => {
 	consoleService.inverse('APP_START');
-	ipcMain.handle('APP.ARGV', () => {
-		return ARGV;
-	});
 	ipcMain.handle('APP.VERSION', () => {
 		return app.getVersion();
-	});
-	ipcMain.handle('APP.NAME', () => {
-		return app.getName();
-	});
-	ipcMain.handle('APP.CONSTANT', () => {
-		return CONSTANTS;
 	});
 	app.on('ready', () => {
 		const { width: screenWidth, height: screenHeight } =
