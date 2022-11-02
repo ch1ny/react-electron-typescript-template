@@ -1,19 +1,20 @@
-import path from 'path';
-import { DATA_PATH } from '../../../constants';
+/**
+ * ⚠️: plugin 功能存在安全风险，请斟酌后使用！
+ */
+
 import { services, SyncDescriptor } from "../../ioc";
 import { DPluginService } from "../core/decorators";
 import { servicesLifecycle } from "../core/serviceLifcycle";
-
-const PLUGIN_DIRNAME = path.resolve(DATA_PATH, 'Plugins');
+import { PagePlugins } from "./plugins";
 
 export interface IPluginService {
-
 }
 
 export class PluginService implements IPluginService {
+    private pagePlugins: PagePlugins;
 
     constructor() {
-
+        this.pagePlugins = new PagePlugins();
     }
 
 }

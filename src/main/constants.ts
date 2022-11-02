@@ -27,3 +27,5 @@ export const screenSize: {
 } = {};
 
 export const DATA_PATH = path.resolve(ASAR_ROOT_PATH, '..', '..', 'Data');
+
+export const PLUGIN_DIRNAME = path.resolve(DATA_PATH, 'Plugins');
