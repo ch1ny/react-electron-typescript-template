@@ -27,6 +27,7 @@ const createMainWindow = () => {
 		},
 		webPreferences: {
 			preload: path.join(PRELOAD_DIR, 'preload.js'),
+			webSecurity: false
 		},
 		onWindowShow: [
 			{
